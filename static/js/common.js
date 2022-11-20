@@ -107,21 +107,18 @@ header.innerHTML = `<div class="header-content">
             </div>
         </div>
         <ul class="navbar-nav header-right">
-    
-        
-            <li class="nav-item dropdown notification_dropdown">
-                <a class="nav-link bell bell-link" href="/user/logout">Logout &nbsp;
-                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="28px" height="28px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M3 5c0-1.1.9-2 2-2h8v2H5v14h8v2H5c-1.1 0-2-.9-2-2V5Zm14.176 6L14.64 8.464l1.414-1.414l4.95 4.95l-4.95 4.95l-1.414-1.414L17.176 13H10.59v-2h6.586Z"/></svg>
-
-                </a>
-            </li>
-        
-            <li class="nav-item dropdown notification_dropdown">
-            <a class="nav-link bell bell-link" href="/user/refresh">Refresh &nbsp;
+             <li class="nav-item dropdown notification_dropdown">
+            <a class="btn btn-outline-primary d-block btn-xs text-uppercase" href="/user/refresh">Refresh &nbsp;
             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="28px" height="28px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 50 50"><path fill="currentColor" fill-rule="evenodd" d="M 20 4 C 14.507813 4 10 8.507813 10 14 L 10 31.75 L 7.125 28.875 L 4.3125 31.71875 L 12 39.40625 L 19.6875 31.71875 L 16.875 28.90625 L 14 31.75 L 14 14 C 14 10.691406 16.691406 8 20 8 L 31 8 L 31 4 Z M 38 10.59375 L 30.28125 18.3125 L 33.125 21.125 L 36 18.25 L 36 36 C 36 39.308594 33.308594 42 30 42 L 19 42 L 19 46 L 30 46 C 35.492188 46 40 41.492188 40 36 L 40 18.25 L 42.875 21.125 L 45.6875 18.28125 Z"></path></svg>
-
-            </a>
+             </a>
         </li>
+
+        <li class="nav-item dropdown notification_dropdown">
+        <a class="btn btn-primary d-block btn-xs text-uppercase" href="/user/logout">Logout &nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="28px" height="28px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M3 5c0-1.1.9-2 2-2h8v2H5v14h8v2H5c-1.1 0-2-.9-2-2V5Zm14.176 6L14.64 8.464l1.414-1.414l4.95 4.95l-4.95 4.95l-1.414-1.414L17.176 13H10.59v-2h6.586Z"/></svg>
+        </a>
+    </li>
+
         </ul>
     </div>
 </nav>
