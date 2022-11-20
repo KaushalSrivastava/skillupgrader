@@ -63,14 +63,14 @@
                             
                             <br>
                             <label for="password">Old Password</label><br>
-                            <input type="password" class="user-input" name="password"> <br><br>
+                            <input type="password" id="oldPass" class="user-input" name="password"> <br><br>
                             <label for="password">New Password</label><br>
-                            <input type="password" class="user-input" name="password"> <br><br>
+                            <input type="password" id="newPass" class="user-input" name="password"> <br><br>
                             <label for="password">Confirm New Password</label><br>
-                            <input type="password" class="user-input" name="password">
+                            <input type="password" id="newPassConfirm" class="user-input" name="password">
 
                         <div class="card-footer border-0 pt-0 mt-4">
-                            <a href="javascript:void(0);" class="btn btn-primary d-block btn-lg text-uppercase">Update Password</a>
+                            <a onclick="updatePass()" class="btn btn-primary d-block btn-lg text-uppercase">Update Password</a>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
 	</div>
 
     <script>
-      
+      //Update UPI
         const updateUPI = async () => {
             const upifield = document.getElementById("upi");
 			const newUPIobj = {newUPI: upifield.value};
@@ -109,7 +109,41 @@
 				 else{
 					 alert(result.error)
 				 }
+             }
+
+             //Update Password
+
+ const updatePass = async () => {
+            const oldPassField = document.getElementById("oldPass");
+            const newPassField = document.getElementById("newPass");
+            const newPassConfirmField = document.getElementById("newPassConfirm");
+            
+            if(newPassField.value === newPassConfirmField.value){
+                      const newPassObj = {oldPass: oldPassField.value, newPass: newPassField.value};
+                      const result = await fetch('/user/updatepass', {
+				      method: 'POST',
+				      headers: {
+					            'Content-type': 'application/json'
+				               },
+				      body: JSON.stringify(newPassObj)
+			        }).then(res => res.json())
+
+			         if(result.status === 'ok'){					
+					        alert(result.message)
+                            fetch('./refresh')
+			            }
+				        else{
+					        alert(result.error)
+				        }
+                }
+            else {
+                alert("New Password and Confirm Password do not match");
+                }
+
+			
         }
+
+
     </script>
    
     <!-- Required js -->

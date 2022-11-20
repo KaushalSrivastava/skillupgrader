@@ -3,6 +3,7 @@ const path = require('path')
 const { requireAuth } = require('../middleware/requireAuth')
 const User = require('../models/user')
 const router = express.Router()
+const bcrypt = require('bcryptjs')
 
 router.use(express.static(path.join(__dirname, "../static")));
 
@@ -37,7 +38,31 @@ router.post('/profile', requireAuth, async (req,res) => {
     res.json({status: 'ok', message: 'UPI Updated Successfully'})
 })
     
+router.post('/updatepass', requireAuth, async (req,res) => {
+    const user = await User.findById(req.cookies.user._id)
+    const {oldPass, newPass} = req.body
+    if(await bcrypt.compare(oldPass, user.passhash)){
+       
+        if(!newPass || newPass == '' || typeof newPass !== 'string')
+        return res.json({status: 'error', error: 'Invalid New Password'})
 
+        if(newPass.length < 6)
+        return res.json({status: 'error', error: 'Your password must be atleast 6 characters long.'})
+
+        const newpasshash = await bcrypt.hash(newPass, 10)
+        const passUpdate = await User.findOneAndUpdate({ _id: user }, { passhash: newpasshash }, {new: true }) 
+        if(!passUpdate){
+            return res.json({status: 'error', error: 'Password Update Failed'})
+        }
+        res.json({status: 'ok', message: 'Password Updated Successfully'})
+    }
+    else
+    {
+        res.json({status: 'error', error: 'Old Password you entered is incorrect !'})
+    }
+   
+})
+   
 
 router.get('/withdraw', requireAuth, (req,res) => {
     res.render('withdraw.ejs')
