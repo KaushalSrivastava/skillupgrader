@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Sign Up</title>
+	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+
+
+	<!-- Style css -->
+    <link href="css/style.css" rel="stylesheet">
+	
+</head>
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="waviy">
+		   <span style="--i:1">L</span>
+		   <span style="--i:2">o</span>
+		   <span style="--i:3">a</span>
+		   <span style="--i:4">d</span>
+		   <span style="--i:5">i</span>
+		   <span style="--i:6">n</span>
+		   <span style="--i:7">g</span>
+		   <span style="--i:8">.</span>
+		   <span style="--i:9">.</span>
+		   <span style="--i:10">.</span>
+		</div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+
+        <div class="login-body">
+            <!-- row -->
+		
+					<div class="col-xl-3 col-xxl-6 mt-4">
+						<div class="card">
+							<div class="card-header border-0 pb-0">
+								<div>
+									<h2 class="h2 mb-2">Sign Up</h2>
+									<span class="fs-12">Let's start your <b>Upskilling</b> journey </span>
+								</div>
+								<div class="dropdown">
+									<a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="/login">Log in</a>
+							
+									</div>
+								</div>
+							</div>
+							<form id="signup_form">
+							<div class="card-body">	
+								
+                                <label for="email">E-mail</label><br>
+								<input id="email" type="email" class="user-input" name="email">
+								<label for="username">Username</label><br>
+								<input id="username" type="text" class="user-input" name="username"> <br>
+								<label for="name">Name</label><br>
+								<input id="name" type="text" class="user-input" name="name"> <br>
+                                <label for="password">Password</label><br>
+                                <input id="password" type="password" class="user-input" name="password">  
+                                <label for="password">Confirm Password</label><br>
+                                <input id="confirm_pass" type="password" class="user-input" name="password">
+								
+							
+							</div>
+							<div class="card-footer border-0 pt-0">
+								<input type="submit" class="btn btn-primary d-block btn-lg text-uppercase center-footer" value="SIGNUP">
+							</div>
+						</form>
+						</div>
+					</div>
+	
+				
+				</div>
+ 
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="center-footer">
+		
+            <div class="copyright">
+                <p>© - <a href="#" target="_blank">Skill Upgrader</a> | 2022</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+		
+                <script>
+                   const signup_form = document.getElementById('signup_form');
+
+				   const signUpNow = async (ud) => {
+					const usr_details = ud;
+					const result = await fetch('/signup', {
+						method: 'POST',
+						headers: {
+							'Content-type': 'application/json'
+						},
+						body: JSON.stringify(usr_details)
+					}).then(res => res.json())
+
+					if(result.status === 'ok'){
+						if(result.user)
+					    location.assign('./user')
+					}
+						else{
+							alert(result.error)
+						}
+
+				   }
+
+				   signup_form.addEventListener('submit', async (event) => {
+					event.preventDefault();
+					const email = document.getElementById('email').value;
+					const name = document.getElementById('name').value;
+					const password = document.getElementById('password').value;
+					const confirm_pass = document.getElementById('confirm_pass').value;
+					const username = document.getElementById('username').value;
+					const ref = "<%=ref%>";
+					const user_details = {email: email, username: username, name: name, password: password, confirm_pass: confirm_pass, ref: ref};
+					const username_regex = /^[a-z0-9]{6,18}$/;  //SMALL CASE a-z & numbers allowed only between 6-18 characters
+
+		//VALIDATIONS
+		if(!name || name == '' || typeof name !== 'string' || name.length > 25)
+        alert('Invalid Name')
+		else if(!username || username == '' || typeof username !== 'string')
+        alert('Invalid Username')
+		else if(!email || email == '' || typeof email !== 'string')
+        alert('Invalid email')
+		else if(!password || password == '' || typeof password !== 'string')
+        alert('Invalid Password')
+		else if(password.length < 6)
+        alert('Your password must be atleast 6 characters long.')
+		else if(!username_regex.test(username))
+        alert('Username must be 6-18 characters long, in lower case and cannot contain special characters')
+		else if(password != confirm_pass)
+		alert('Passwords do not match')	
+		else signUpNow(user_details)
+
+					
+				   });
+                </script>
+
+	
+   
+    <!-- Required js -->
+    <script src="js/global.min.js"></script>
+    <script src="js/custom.min.js"></script>
+	<script src="js/dlabnav-init.js"></script>
+
+	
+</body>
+
+</html>

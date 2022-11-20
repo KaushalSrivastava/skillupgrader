@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Profile</title>
+	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+
+
+	<!-- Style css -->
+    <link href="css/style.css" rel="stylesheet">
+	
+</head>
+<body>
+    <div id="preloader"></div>
+    <div id="main-wrapper">
+    <div class="nav-header" id="navheader">   </div>
+    <div class="header" id="header" data-title="Profile"></div>
+    <div class="dlabnav" id="sidebar" data-name="<%= user.name%>"> </div>
+		
+		
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+			<div class="container-fluid">
+				<div class="row">
+                    <div class="col-xl-3 col-xxl-12">
+                        <div class="card">
+                            <div class="card-header border-0 pb-0">
+                            <div>
+                                <h4 class="card-title mb-2">Update Payment Information</h4>
+                                <span class="fs-12">Change payment info here</span>
+                            </div>
+                        </div>
+                    <div class="card-body">	
+                            
+                                <label for="phone">UPI address</label><br>
+								<input class="user-input" type="text" name="upi" id="upi" value="<%= user.upi%>"> <br>
+
+                    <div class="card-footer border-0 pt-0 mt-4">
+                    <a onclick="updateUPI()" class="btn btn-primary d-block btn-lg text-uppercase">Update Payment Method</a>
+                    </div>
+                    </div>
+
+                </div> </div>
+
+                <div class="col-xl-3 col-xxl-12">
+                    <div class="card">
+                        <div class="card-header border-0 pb-0">
+                            <div>
+                                <h4 class="card-title mb-2">Update Password</h4>
+                                <span class="fs-12">Change details here</span>
+                            </div>
+                    
+                        </div>
+                        <div class="card-body">	
+                            
+                            <br>
+                            <label for="password">Old Password</label><br>
+                            <input type="password" class="user-input" name="password"> <br><br>
+                            <label for="password">New Password</label><br>
+                            <input type="password" class="user-input" name="password"> <br><br>
+                            <label for="password">Confirm New Password</label><br>
+                            <input type="password" class="user-input" name="password">
+
+                        <div class="card-footer border-0 pt-0 mt-4">
+                            <a href="javascript:void(0);" class="btn btn-primary d-block btn-lg text-uppercase">Update Password</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+       </div>
+    </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+	
+        <div class="footer" id="footer"></div>
+       
+        
+
+	</div>
+
+    <script>
+      
+        const updateUPI = async () => {
+            const upifield = document.getElementById("upi");
+			const newUPIobj = {newUPI: upifield.value};
+            const result = await fetch('/user/profile', {
+				 method: 'POST',
+				 headers: {
+					 'Content-type': 'application/json'
+				 },
+				 body: JSON.stringify(newUPIobj)
+			 }).then(res => res.json())
+
+			 if(result.status === 'ok'){					
+					alert(result.message)
+                    fetch('./refresh')
+			 }
+				 else{
+					 alert(result.error)
+				 }
+        }
+    </script>
+   
+    <!-- Required js -->
+    <script src="js/global.min.js"></script>
+    <script src="js/custom.min.js"></script>
+	<script src="js/dlabnav-init.js"></script>
+    <script src="js/common.js"></script>
+	
+</body>
+
+</html>

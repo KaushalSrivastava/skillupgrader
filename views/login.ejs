@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Login</title>
+	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+
+
+	<!-- Style css -->
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+	
+</head>
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="waviy">
+		   <span style="--i:1">L</span>
+		   <span style="--i:2">o</span>
+		   <span style="--i:3">a</span>
+		   <span style="--i:4">d</span>
+		   <span style="--i:5">i</span>
+		   <span style="--i:6">n</span>
+		   <span style="--i:7">g</span>
+		   <span style="--i:8">.</span>
+		   <span style="--i:9">.</span>
+		   <span style="--i:10">.</span>
+		</div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+
+        <div class="login-body">
+            <!-- row -->
+		
+					<div class="col-xl-3 col-xxl-6">
+						<div class="card">
+							<div class="card-header border-0 pb-0">
+								<div>
+									<h2 class="h2 mb-2">Login</h2>
+									<span class="fs-12">Kindly enter your credentials to proceed</span>
+								</div>
+								<div class="dropdown">
+									<a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="/signup">Sign Up</a>
+							
+									</div>
+								</div>
+							</div>
+							<form id="login_form">
+							<div class="card-body">	
+								
+								<br>
+                                <label for="username">Username</label><br>
+								<input type="text" class="user-input" id="username" name="username"> <br><br>
+                                <label for="password">Password</label><br>
+                                <input type="password" class="user-input"id="password" name="password">
+								
+								
+							</div>
+							<div class="card-footer border-0 pt-0">
+								<input type="submit" class="btn btn-primary d-block btn-lg text-uppercase center-footer" value="LOGIN">
+							</div>
+						</form>
+						</div>
+					</div>
+	
+				
+				</div>
+ 
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="center-footer">
+		
+            <div class="copyright">
+                <p>© - <a href="#" target="_blank">Skill Upgrader</a> | 2022</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+		
+		<script>
+		
+			const login_form = document.getElementById('login_form');
+
+			login_form.addEventListener('submit', async (event) => {
+			 event.preventDefault();
+			 const username = document.getElementById('username');
+			 const password = document.getElementById('password');
+			 const user_details = {username: username.value, password: password.value};
+
+
+			 const result = await fetch('/login', {
+				 method: 'POST',
+				 headers: {
+					 'Content-type': 'application/json'
+				 },
+				 body: JSON.stringify(user_details)
+			 }).then(res => res.json())
+
+			 if(result.status === 'ok'){					
+					if(result.user)
+					    location.assign('./user')
+			 }
+				 else{
+					 alert(result.error)
+				 }
+
+			});
+		 </script>
+
+	
+   
+    <!-- Required js -->
+    <script src="js/global.min.js"></script>
+    <script src="js/custom.min.js"></script>
+	<script src="js/dlabnav-init.js"></script>
+
+	
+</body>
+
+</html>
