@@ -63,10 +63,6 @@ router.post('/updatepass', requireAuth, async (req,res) => {
    
 })
    
-
-router.get('/withdraw', requireAuth, (req,res) => {
-    res.render('withdraw.ejs')
-})
 router.get('/logout',  requireAuth, (req,res) => {
     res.cookie('token', '', { maxAge: 1})
     res.cookie('user', '', { maxAge: 1})
