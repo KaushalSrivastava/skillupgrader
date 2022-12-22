@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 const User = require('./models/user')
 const username = encodeURIComponent("skillupgrader")
 const password = encodeURIComponent("skillupgraderMDB")
-const JWT_SECRET = 'JWT_SECRET_TEST';
+const JWT_SECRET = 'jwtskillupgraderkey';
 
 
 //CONNECTING TO DATABASE

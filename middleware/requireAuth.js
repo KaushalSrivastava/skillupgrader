@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
 
-const JWT_SECRET = 'JWT_SECRET_TEST';
+const JWT_SECRET = 'jwtskillupgraderkey';
 const requireAuth = (req, res, next) => {
     const token = req.cookies.token;
    
