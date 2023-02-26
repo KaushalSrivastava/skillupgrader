@@ -6,12 +6,15 @@ const router = express.Router()
 
 router.use(express.static(path.join(__dirname, "../static")));
 
-
-router.get('/pendingpayments', requireAuth, async (req,res) => {
-    const filter = {amount: {$gte: 1000}};
-    const pendingusers = await User.find(filter).lean()
-    res.render('pendingpayment.ejs', {pendingusers:pendingusers})
+router.get('/*', (req, res) => {
+    res.send("You do not have the permission to view this page")
 })
+
+// router.get('/pendingpayments', requireAuth, async (req,res) => {
+//     const filter = {amount: {$gte: 1000}};
+//     const pendingusers = await User.find(filter).lean()
+//     res.render('pendingpayment.ejs', {pendingusers:pendingusers})
+// })
 
 
 module.exports = router
