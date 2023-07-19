@@ -105,6 +105,7 @@
 			 if(result.status === 'ok'){					
 					alert(result.message)
                     fetch('./refresh')
+                    
 			 }
 				 else{
 					 alert(result.error)
@@ -129,11 +130,15 @@
 			        }).then(res => res.json())
 
 			         if(result.status === 'ok'){					
-					        alert(result.message)
-                            fetch('./refresh')
+					        alert(result.message);
+                            oldPassField.value == '';
+                            newPassField.value == '';
+                            newPassConfirmField.value == '';
+                            fetch('./refresh');
+                            window.location.reload();
 			            }
 				        else{
-					        alert(result.error)
+					        alert(result.error);
 				        }
                 }
             else {

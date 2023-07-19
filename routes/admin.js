@@ -1,20 +1,28 @@
 const express = require('express')
 const path = require('path')
 const User = require('../models/user')
-const { requireAuth } = require('../middleware/requireAuth')
+const { requireAdmin } = require('../middleware/requireAdmin')
 const router = express.Router()
 
 router.use(express.static(path.join(__dirname, "../static")));
 
-router.get('/*', (req, res) => {
-    res.send("You do not have the permission to view this page")
+router.get('/', requireAdmin, (req, res) => {
+    res.render('admin/admindashboard.ejs')
 })
 
-// router.get('/pendingpayments', requireAuth, async (req,res) => {
-//     const filter = {amount: {$gte: 1000}};
-//     const pendingusers = await User.find(filter).lean()
-//     res.render('pendingpayment.ejs', {pendingusers:pendingusers})
-// })
+router.get('/earnadmin', requireAdmin, (req, res) => {
+    res.render('admin/earnadmin.ejs')
+})
+
+router.get('/learnadmin', requireAdmin, (req, res) => {
+    res.render('admin/learnadmin.ejs')
+})
+
+router.get('/pendingpayment', requireAdmin, async (req,res) => {
+    const filter = {amount: {$gte: 1000}};
+    const pendingusers = await User.find(filter).lean()
+    res.render('admin/pendingpayment.ejs', {pendingusers:pendingusers})
+})
 
 
 module.exports = router

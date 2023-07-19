@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css"
+    />
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </head>
+  <body>
+    <div id="preloader"></div>
+    <div id="main-wrapper">
+      <div class="nav-header" id="navheader"></div>
+      <div class="header" id="header" data-title="Activate Account"></div>
+      <div class="dlabnav" id="sidebar" data-name="<%= user.name%>"></div>
+
+      <!--**********************************
+            Content body start
+        ***********************************-->
+      <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+          <div class="row invoice-card-row">
+            <div class="col-xl-3 col-xxl-12">
+              <div class="card">
+                <div class="card-header border-0 pb-0">
+                  <div>
+                    <h4 class="card-title mb-2">
+                      Your account is not activated yet.
+                    </h4>
+                    <span class="fs-12"
+                      >Please click on the button below to purchase the course
+                      and activate your account.</span
+                    >
+                  </div>
+                  <div class="dropdown">
+                    <a
+                      href="javascript:void(0);"
+                      class="btn-link"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+                          stroke="#575757"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                        <path
+                          d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+                          stroke="#575757"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                        <path
+                          d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+                          stroke="#575757"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="./terms">Read Policies</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="user-bx">
+                    <h5>
+                      The contents of the course and your referral link will be
+                      activated once your account is activated. To Activate your
+                      account, please click on the link below.
+                    </h5>
+                  </div>
+                  <br />
+                </div>
+                <div class="card-footer border-0 pt-0">
+                  <button
+                    id="rzp-button1"
+                    class="btn btn-primary d-block btn-lg text-uppercase"
+                  >
+                    Activate Account
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-xxl-12">
+              <div class="row">
+                <div class="col-xl-12">
+                  <div class="card">
+                    <div class="card-body d-sm-flex d-block align-items-center">
+                      <div>
+                        <h3 class="text-black">Having issues with Payment?</h3>
+                        <p>Contact our support at support@skillupgrader.com</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--**********************************
+            Content body end
+        ***********************************-->
+
+      <div class="footer" id="footer"></div>
+    </div>
+
+    <script>
+      let orderId;
+      $(document).ready(function () {
+        var settings = {
+          url: "/create/orderId",
+          method: "POST",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify({
+            amount: "50000",
+          }),
+        };
+
+        //creates new orderId everytime
+        $.ajax(settings).done(function (response) {
+          orderId = response.orderId;
+          console.log(orderId);
+          $("button").show();
+        });
+      });
+
+      let options = {
+        key: "rzp_test_exOd4sbFEzD8T7", // Enter the Key ID generated from the Dashboard
+        amount: "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "Skill Upgrader",
+        description: "Test Transaction",
+        image: "images/fav.png",
+        order_id: orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        callback_url: "#",
+
+        theme: {
+          color: "#510bc4",
+        },
+      };
+
+      let rzp1 = new Razorpay(options);
+      document.getElementById("rzp-button1").onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+      };
+    </script>
+
+    <!-- Required js -->
+
+    <script src="js/global.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/dlabnav-init.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

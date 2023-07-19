@@ -15,7 +15,6 @@ const username = encodeURIComponent("skillupgrader")
 const password = encodeURIComponent("skillupgraderMDB")
 const JWT_SECRET = 'jwtskillupgraderkey';
 
-
 //CONNECTING TO DATABASE
 
 mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.azj4s.mongodb.net/skillupgrader?retryWrites=true&w=majority`)
@@ -62,6 +61,8 @@ app.post('/login', async (req,res) => {
     res.json( {status: 'error', error: 'Invalid Username or Password'})
 })
 
+
+
 //SIGNUP
 
 app.get('/signup', (req,res) =>{
@@ -74,9 +75,13 @@ app.get('/signup', (req,res) =>{
 })
 
 app.post('/signup', async (req, res) => {
+
+
+
+//ADDING DATA TO DATABASE NOW
        
         const username_regex = /^[a-z0-9]{6,18}$/;  //SMALL CASE a-z & numbers allowed only between 6-18 characters
-        let {email, username, name, password, ref} = req.body
+        let {email, username, name, password, ref, phone} = req.body
    
         ref = ref==undefined || ref == '' ? 'noreferrer' : ref;  //If no referrer then assign ref as norefferer string
 
@@ -93,6 +98,9 @@ app.post('/signup', async (req, res) => {
         if(!password || password == '' || typeof password !== 'string')
         return res.json({status: 'error', error: 'Invalid Password'})
 
+        else if (!phone || phone == "" || phone.length != 10)
+        return res.json("Invalid Phone Number");
+
         if(password.length < 6)
         return res.json({status: 'error', error: 'Your password must be atleast 6 characters long.'})
 
@@ -104,7 +112,7 @@ app.post('/signup', async (req, res) => {
         try{
             // CREATE USER DOCUMENT IN DATABASE
            const response = await User.create({
-                email, username, name, passhash, ref
+                email, username, name, passhash, ref, phone
             })
             console.log('User Created Successfully', response)
 
@@ -127,7 +135,6 @@ app.post('/signup', async (req, res) => {
        
 
 })
-
 
 
 app.listen(port, console.log(`App running at port : ${port}. Browse at http://localhost:5000`))

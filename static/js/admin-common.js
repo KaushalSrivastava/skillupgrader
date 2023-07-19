@@ -20,7 +20,7 @@ sidebar.innerHTML = `
 <div class="dlabnav-scroll">
 <ul class="metismenu" id="menu">
     <li class="dropdown header-profile">
-        <a class="nav-link" href="/user/profile">
+        <a class="nav-link" href="/admin">
             <img src="images/ion/man (1).png" width="20" alt=""/>
             <div class="header-info ms-3">
                 <span class="font-w600 ">Hi, &nbsp;<b>${sidebar.dataset.name}</b></span>
@@ -29,40 +29,29 @@ sidebar.innerHTML = `
         </a>
         
     </li>
-    <li><a href="/user/" aria-expanded="false">
+    <li><a href="/admin/" aria-expanded="false">
             <i class="flaticon-025-dashboard"></i>
             <span class="nav-text">Dashboard</span>
         </a>
     </li>
-    <li><a href="/user/learn" aria-expanded="false">
+    <li><a href="/admin/learnadmin" aria-expanded="false">
         <i class="flaticon-086-star"></i>
-        <span class="nav-text">Learn</span>
+        <span class="nav-text">Learn (Admin)</span>
     </a></li>
 
-    <li><a href="/user/earn" class="ai-icon" aria-expanded="false">
+    <li><a href="/admin/earnadmin" class="ai-icon" aria-expanded="false">
     <i class="flaticon-053-lifebuoy"></i>
-    <span class="nav-text">Earn</span>
+    <span class="nav-text">Earn (Admin)</span>
 </a>
 </li>
 
-    <li><a href="/user/report" aria-expanded="false">
+    <li><a href="/admin/pendingpayment" aria-expanded="false">
             <i class="flaticon-041-graph"></i>
-            <span class="nav-text">Reports</span>
+            <span class="nav-text">Pending Payments</span>
         </a>
     </li>
-  
   
 
-    <li><a href="/user/profile" aria-expanded="false">
-        <i class="flaticon-381-id-card-1"></i>
-            <span class="nav-text">Profile</span>
-        </a>
-    </li>
-    <li><a href="/user/terms" aria-expanded="false">
-    <i class="flaticon-022-copy"></i>
-    <span class="nav-text">Terms & Conditions</span>
-</a>
-</li>
 
 </ul>
 </div>

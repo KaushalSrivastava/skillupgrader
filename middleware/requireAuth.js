@@ -9,16 +9,17 @@ const requireAuth = (req, res, next) => {
     if(token){
         jwt.verify(token, JWT_SECRET, async (err, decodedToken) => {
             if(err){
-                console.log(err)
-                res.locals.user = null
-                res.redirect('../login')
+                console.log(err);
+                res.locals.user = null;
+                res.redirect('../login');
             }
             else{
                 // console.log(decodedToken)
                 const userInCookie = req.cookies.user;
-                if(!userInCookie){
-                console.log('Database called')
-                const user = await User.findById(decodedToken.id)
+                
+                if(!userInCookie)
+                {
+                const user = await User.findById(decodedToken.id);
                 const sanitized_user = {
                     _id: user.id,
                     email: user.email,
@@ -30,21 +31,22 @@ const requireAuth = (req, res, next) => {
                     totalamount: user.totalamount,
                     upi: user.upi
                   }
-                console.log(sanitized_user)
-                res.locals.user = sanitized_user
-                res.cookie('user', sanitized_user, { httpOnly: true })
+                console.log('Database called');
+                res.locals.user = sanitized_user;
+                res.cookie('user', sanitized_user, { httpOnly: true });
+
                 }
                 else{
                     res.locals.user = userInCookie;
-                    console.log('Cookie Called')
+                    console.log('Cookie Called');
                 }
-                next()
+                next();
             }
         })
     }
     else{
-        res.locals.user = null
-        res.redirect('../login')
+        res.locals.user = null;
+        res.redirect('../login');
     }
 }
 
